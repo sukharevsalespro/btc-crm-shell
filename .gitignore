@@ -1,0 +1,16 @@
+# build artifacts (rebuilt in CI)
+tauri-app/src-tauri/target/
+tauri-app/src-tauri/gen/schemas/
+
+# node
+**/node_modules/
+
+# android build outputs / local machine config
+capacitor-app/android/build/
+capacitor-app/android/app/build/
+capacitor-app/android/.gradle/
+capacitor-app/android/local.properties
+capacitor-app/android/capacitor-cordova-android-plugins/build/
+
+# secrets — keystore + password NEVER go to git
+android-signing/

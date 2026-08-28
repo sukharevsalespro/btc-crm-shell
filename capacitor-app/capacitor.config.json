@@ -1,0 +1,10 @@
+{
+  "appId": "ru.bigtechnoclub.crm",
+  "appName": "BTC CRM",
+  "webDir": "www",
+  "server": {
+    "url": "https://crm.xn--80abbgkqqiqk5bzb.xn--p1ai",
+    "androidScheme": "https",
+    "cleartext": false
+  }
+}

@@ -1,0 +1,40 @@
+name: Build macOS app (BTC CRM shell)
+
+# Manual trigger — Tauri can't cross-compile a .app/.dmg from Linux (Apple's
+# toolchain/license requires a real macOS host). This runs on GitHub's
+# macos-latest runner instead. No code signing / notarization configured —
+# the resulting .app will show an "unidentified developer" warning on first
+# launch, same as the Windows build. That's expected and accepted.
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: tauri-app
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Tauri CLI
+        run: npm install -g @tauri-apps/cli@latest
+
+      - name: Build .app / .dmg
+        run: tauri build --bundles app,dmg
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: btc-crm-macos
+          path: |
+            tauri-app/src-tauri/target/release/bundle/macos/*.app
+            tauri-app/src-tauri/target/release/bundle/dmg/*.dmg
